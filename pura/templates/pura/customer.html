@@ -1,0 +1,78 @@
+{% extends 'pura/main.html' %}
+
+{% block content %}
+
+    <div>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+          <ul class="nav nav-pills">
+              <form class="form-inline my-2 my-lg-0 pr-2" method="get">
+                {{ customer_filter.form }}
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"> Search</button>
+              </form>
+          </ul>
+            <h5 class="text-center">All Customer Information</h5>
+
+
+            <ul class="navbar-nav">
+                <li>
+                    <a class="btn btn-outline-primary" href="{% url 'add_customer' %}">Add New</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+
+    <div class="px-3">
+    <table class="table table-bordered table-hover table-sm">
+  <thead class="thead-dark text-center">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Email</th>
+      <th scope="col">Address</th>
+      <th scope="col">Staff</th>
+      <th scope="col">Jar Rate</th>
+      <th scope="col">Supply Begin</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Details</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for c in customers %}
+  <tr>
+      <td>{{ c.id }}</td>
+      <td>{{ c.name }}</td>
+      <td>
+          <a href="tel:+880{{ c.mobile }}">+880{{ c.mobile }}</a>
+      </td>
+      <td>{{ c.email }}</td>
+      <td>{{ c.address }}</td>
+      <td>{{ c.staff }}</td>
+      <td>{{ c.jar_rate }}</td>
+      <td>{{ c.supply_begin }}</td>
+      <td><div class="text-center">
+              <a class="button btn btn-warning" href="{% url 'edit_customer' c.id %}">Edit</a>
+          </div>
+      </td>
+      <td><div class="text-center">
+              <a class="button btn btn-info" href="{% url 'customer_details' c.id %}">View</a>
+          </div>
+      </td>
+      <td><div class="text-center">
+              <a  class="button btn btn-danger" href="{% url 'delete_customer' c.id %}">Delete</a>
+          </div>
+      </td>
+  </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+    </div>
+
+
+{% endblock %}

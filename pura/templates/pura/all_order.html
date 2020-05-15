@@ -1,0 +1,39 @@
+{% extends 'pura/main.html' %}
+{% block content %}
+    <br>
+    <div class="container">
+         <h6 class="text-center">All Order</h6>
+    </div>
+    <br>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>Jar Given</th>
+        <th>Jar Collect</th>
+        <th>Jar Due</th>
+        <th>Total Bill</th>
+        <th>Taka Collect</th>
+        <th>Taka Due</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for order in all_order %}
+      <tr>
+        <td>{{ order.customer_id }}</td>
+        <td>{{ order.jar_given }}</td>
+        <td>{{ order.jar_collect }}</td>
+        <td>{{ order.jar_due_today }}</td>
+        <td>{{ order.total_bill_today }}</td>
+        <td>{{ order.tk_collect }}</td>
+        <td>{{ order.taka_due_today }}</td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

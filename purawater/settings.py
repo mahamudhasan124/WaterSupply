@@ -25,7 +25,7 @@ SECRET_KEY = '&25$h+(j4@*0_dhk+i_!3ewbj&y&*bkpnl!)z3yb#^ax!1#my)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["purawater.herokuapp.com"]
+ALLOWED_HOSTS = ["purawater.herokuapp.com","127.0.0.1"]
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pura'
+    'django_filters',
+    'pura',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,183 @@
+{% extends 'pura/main.html' %}
+
+
+<script>
+    function print(el) {
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
+</script>
+
+
+{% block content %}
+
+<div>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+          <ul class="nav nav-pills">
+           <!--   <a class="btn btn-outline-primary" href="#">Previous</a>   -->
+          </ul>
+            <h5 class="text-center"></h5>
+            <ul class="navbar-nav">
+                <li>
+                    <button type="button" onclick="print('print')" class="btn btn-outline-danger" href="#">Print</button>
+                <!--    <a class="btn btn-outline-primary" href="#">Next</a>   -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!-- Day's Navber Item -->
+
+<!--
+<div>
+    <nav class="navbar navbar-dark bg-dark text-light navbar-expand-sm">
+        <div class="container">
+         <ul class="nav nav-pills">
+            <li class="nav-item">
+             <h5>Date: {{ today }}</h5>
+           </li>
+         </ul>
+         <h5 class="text-center">Staff Name: {{ staff.name }}</h5>
+            <ul class="navbar-nav">
+
+            </ul>
+        </div>
+    </nav>
+</div>
+-->
+<!--
+<div>
+
+    <nav class="navbar navbar-dark bg-dark text-light">
+
+        <div class="container">
+         <h6 class="align-left" >Date</h6>
+         <h6 class="text-center">{{ staff.name }}</h6>
+
+        </div>
+    </nav>
+</div>
+-->
+
+ <div class="px-5" id="print">
+
+<h5  class="text-center">{{ staff.name }} Delivery Report</h5>
+    <table class="table table-bordered table-hover table-sm">
+  <thead class="thead-light text-center">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Tk Due</th>
+      <th scope="col">Jar Due</th>
+      <th scope="col">Jar Given</th>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">Tk Collect</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for ca in customers %}
+     <form method="POST">
+    <tr>
+      <td>{{ ca.id }}</td>
+      <td>{{ ca.tk_previous_due }}</td>
+      <td>{{ ca.jar_previous_due }}</td>
+      <td><input type="number" class="small">{{ delivery.jar_given }}</td>
+      <td><input type="number" class="small">{{ delivery.jar_collect }}</td>
+      <td><input type="number" class="small">{{ delivery.tk_collect }}</td>
+     </form>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+
+
+<!-- First Column in Delivery Report -->
+<!--
+  <div class="column pl-5">
+    <table class="table table-sm table-bordered table-hover text-center">
+  <thead class="thead-light" style="font-size: x-small">
+    <tr>
+      <th  scope="col" >ID</th>
+      <th scope="col" >Tk Due</th>
+      <th scope="col" >Jar gave</th>
+      <th scope="col" >Jar collect</th>
+      <th scope="col" >Jar Due</th>
+      <th scope="col" >Bill</th>
+      <th scope="col" >Tk collect</th>
+      <th scope="col" >Taka Due</th>
+      <th scope="col" >Balance</th>
+    </tr>
+  </thead>
+
+  {% for ca in customers %}
+      <tbody>
+    <tr>
+    <td>{{ ca.id }}</td>
+    <td>{{ ca.tk_previous_due }}</td>
+    <td>5</td>
+    <td>0</td>
+    <td>5</td>
+    <td>200</td>
+    <td>100</td>
+    <td>100</td>
+    <td>0</td>
+    </tr>
+  </tbody>
+{% endfor %}
+
+
+</table>
+  </div>
+-->
+<!-- second column -->
+<!--
+  <div class="column pl-2">
+    <table class="table table-bordered table-sm table-hover text-center">
+  <thead class="thead-light" style="font-size:x-small" >
+    <tr>
+      <th  scope="col" >ID</th>
+      <th scope="col" >Tk Due</th>
+      <th scope="col" >Jar Gave</th>
+      <th scope="col" >Jar collect</th>
+      <th scope="col" >Jar Due</th>
+      <th scope="col" >Total</th>
+      <th scope="col" >Tk Collect</th>
+      <th scope="col" >Tk Due</th>
+      <th scope="col" >Balance</th>
+    </tr>
+  </thead>
+
+{% for ca in customers %}
+      <tbody>
+    <tr>
+    <td>{{ ca.id }}</td>
+    <td>{{ ca.tk_previous_due }}</td>
+    <td>0</td>
+    <td>0</td>
+    <td>5</td>
+    <td>200</td>
+    <td>100</td>
+    <td>100</td>
+    <td>0</td>
+    </tr>
+  </tbody>
+{% endfor %}
+
+</table>
+  </div>
+</div>
+-->
+
+{% endblock %}
+
+{% block js %}
+    <script>
+
+    </script>
+{% endblock %}
+

@@ -1,0 +1,192 @@
+{% extends 'pura/main.html' %}
+
+{% block content %}
+
+     <div>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+          <ul class="nav nav-pills">
+          </ul>
+            <h5 class="text-center">All Staff Information</h5>
+            <ul class="navbar-nav">
+                <li>
+                    <a class="btn btn-outline-primary" href="{% url 'add_staff' %}">Add New Staff</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+
+    <div class="px-5">
+    <table class="table table-bordered table-hover table-sm">
+  <thead class="thead-dark text-center">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Email</th>
+      <th scope="col">Address</th>
+      <th scope="col">Job Join</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Duty Area</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delivery Report</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for s in staffs %}
+    <tr>
+      <td>{{ s.id }}</td>
+      <td>{{ s.name }}</td>
+      <td>
+          <a href="tel:+880{{ s.mobile }}">+880{{ s.mobile }}</a>
+      </td>
+      <td>{{ s.email }}</td>
+      <td>{{ s.address }}</td>
+      <td>{{ s.job_Started }}</td>
+      <td>{{ s.salary }}</td>
+      <td>{{ s.duty_Area }}</td>
+      <td>
+          <div class="text-center">
+              <a class="button btn btn-warning" href="{% url 'edit_staff' s.id %}">Edit</a>
+          </div>
+      </td>
+      <td>
+          <div class="text-center">
+              <a class="btn btn-primary btn-block" href="{% url 'delivery' s.id %}">View</a>
+
+          </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+
+
+
+<!-- All Staff Daily Update Report -->
+ <h4 align="center">Staff Daily Update</h4>
+
+<div class="card-deck p-5">
+    {% for s in staffs %}
+    <div class="card">
+        <h5 class="card-header text-center bg-info">{{ s.name }}</h5>
+{#        <h5 class="card-header text-center bg-info">{{ s.get_staff_daily_calculation }}</h5>#}
+{#        <h5 class="card-header text-center bg-info">{{ s.get_staff_monthly_calculation }}</h5>#}
+      <div class="card-body">
+
+       <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+    <tr>
+      <th scope="col">Jar Given</th>
+      <th scope="col">{{ s.get_staff_daily_calculation.jar_given }}</th>
+    </tr>
+  </thead>
+
+  <thead class="table-success">
+    <tr>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">{{ s.get_staff_daily_calculation.jar_collect }}</th>
+    </tr>
+  </thead>
+
+   <thead class="table-warning">
+    <tr>
+      <th scope="col">Jar Due</th>
+      <th scope="col">{{ s.get_staff_daily_calculation.jar_previous_due }}</th>
+    </tr>
+  </thead>
+
+  <thead class="table-secondary">
+    <tr>
+      <th scope="col">Total Taka</th>
+      <th scope="col">{{ s.get_staff_daily_calculation.total_taka }}</th>
+    </tr>
+  </thead>
+
+  <thead class="table-success">
+    <tr>
+      <th scope="col">Taka Collect</th>
+      <th scope="col">{{ s.get_staff_daily_calculation.tk_collect }}</th>
+    </tr>
+  </thead>
+
+   <thead class="table-warning">
+    <tr>
+      <th scope="col">Taka Due</th>
+      <th scope="col">{{ s.get_staff_daily_calculation.tk_previous_due }}</th>
+    </tr>
+  </thead>
+
+</table>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<!-- Staff Monthly Update Code Here -->
+
+ <h3 align="center">Staff Monthly Update</h3>
+
+<div class="card-deck p-5">
+    {% for s in staffs %}
+    <div class="card">
+        <h5 class="card-header text-center bg-info">{{ s.name }}</h5>
+      <div class="card-body">
+
+       <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+    <tr>
+      <th scope="col">Jar Given</th>
+      <th scope="col">{{ s.get_staff_monthly_calculation.jar_given }}</th>
+    </tr>
+  </thead>
+
+  <thead class="table-success">
+    <tr>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">{{ s.get_staff_monthly_calculation.jar_collect }}</th>
+    </tr>
+  </thead>
+
+   <thead class="table-warning">
+    <tr>
+      <th scope="col">Jar Due</th>
+      <th scope="col">{{ s.get_staff_monthly_calculation.jar_previous_due }}</th>
+    </tr>
+  </thead>
+
+  <thead class="table-secondary">
+    <tr>
+      <th scope="col">Total Taka</th>
+      <th scope="col">{{ s.get_staff_monthly_calculation.total_taka }}</th>
+    </tr>
+  </thead>
+
+  <thead class="table-success">
+    <tr>
+      <th scope="col">Taka Collect</th>
+      <th scope="col">{{ s.get_staff_monthly_calculation.tk_collect }}</th>
+    </tr>
+  </thead>
+
+   <thead class="table-warning">
+    <tr>
+      <th scope="col">Taka Due</th>
+      <th scope="col">{{ s.get_staff_monthly_calculation.tk_previous_due }}</th>
+    </tr>
+  </thead>
+
+</table>
+      </div>
+    </div>
+    {% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,10 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>home</p>
-</body>
-</html>
+{% extends 'pura/main.html' %}
+
+{% block content %}
+
+<!-- Total Account Calculation -->
+<div class="card-deck p-5">
+    <div class="card border-info">
+        <div class="card-header text-center p-3 mb-2 bg-primary text-white bg-info">Today</div>
+      <div class="card-body">
+
+<!-- Today's All Delivery Calculation -->
+  <table class="table table-bordered">
+      <thead class="thead-dark">
+    <tr>
+      <th scope="col">Jar Given</th>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">Jar Due</th>
+      <th scope="col">Total Taka</th>
+      <th scope="col">Taka Collect</th>
+      <th scope="col">Taka due</th>
+    </tr>
+  </thead>
+
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">{{ daily_result.jar_given }}</th>
+      <th scope="col">{{ daily_result.jar_collect }}</th>
+      <th scope="col">{{ daily_result.jar_previous_due }}</th>
+      <th scope="col">{{ daily_result.total_taka }}</th>
+      <th scope="col">{{ daily_result.tk_collect }}</th>
+      <th scope="col">{{ daily_result.tk_previous_due }}</th>
+    </tr>
+  </thead>
+
+</table>
+      </div>
+    </div>
+
+<!-- Running Month Delivery Report -->
+    <div class="card border-info">
+        <div class="card-header text-center p-3 mb-2 bg-info text-white">This Month</div>
+      <div class="card-body">
+        <table class="table table-bordered">
+      <thead class="thead-dark">
+    <tr>
+      <th scope="col">Jar Given</th>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">Jar Due</th>
+      <th scope="col">Total Taka</th>
+      <th scope="col">Taka Collect</th>
+      <th scope="col">Taka due</th>
+    </tr>
+  </thead>
+
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">{{ monthly_result.jar_given }}</th>
+      <th scope="col">{{ monthly_result.jar_collect }}</th>
+      <th scope="col">{{ monthly_result.jar_previous_due }}</th>
+      <th scope="col">{{ monthly_result.total_taka }}</th>
+      <th scope="col">{{ monthly_result.tk_collect }}</th>
+      <th scope="col">{{ monthly_result.tk_previous_due }}</th>
+    </tr>
+  </thead>
+
+</table>
+      </div>
+    </div>
+
+</div>
+
+{% endblock %}

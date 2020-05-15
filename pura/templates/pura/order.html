@@ -1,0 +1,51 @@
+{% extends 'pura/main.html' %}
+
+{% block content %}
+
+    <form action="" method="POST">
+    {% csrf_token %}
+    <h5 class="text-center">Order Today</h5>
+    {{ form }}
+    <button class="btn btn-info" type="submit">Add</button>
+    <a type="btn btn-info" href="{% url 'all_order' %}">All Order</a>
+    </form>
+
+    <br>
+    <h6 class="text-center">Today's Order List</h6>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>Jar Given</th>
+        <th>Jar Collect</th>
+        <th>Jar Due</th>
+        <th>Total Bill</th>
+        <th>Taka Collect</th>
+        <th>Taka Due</th>
+        <th>Edit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+      <tr>
+        <td>{{ order.customer_id }}</td>
+        <td>{{ order.jar_given }}</td>
+        <td>{{ order.jar_collect }}</td>
+        <td>{{ order.customer_id.jar_previous_due }}</td>
+        <td>{% widthratio order.jar_given 1 order.customer_id.jar_rate %}</td>
+        <td>{{ order.tk_collect }}</td>
+        <td>{{ order.customer_id.tk_previous_due }}</td>
+        <td>
+            <div class="text-center">
+              <a class="button btn btn-warning" href="{% url 'edit_order' order.customer_id %}">Edit</a>
+          </div>
+        </td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
