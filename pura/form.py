@@ -39,3 +39,9 @@ class OrderForm(ModelForm):
         customer_id = Customer.objects.all().exclude(id__in=get_daily_order_customer_list())
         self.fields['customer_id'].queryset = customer_id
 '''
+
+class CostForm(ModelForm):
+    class Meta:
+        model = Cost
+        fields = '__all__'
+

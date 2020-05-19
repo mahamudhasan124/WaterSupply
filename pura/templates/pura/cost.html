@@ -1,0 +1,114 @@
+{% extends 'pura/main.html' %}
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-4">
+      <h5 class="text-center">Purera Cost</h5>
+  <div>
+  <table class="table table-condensed">
+    <thead>
+      <tr style="color: red">
+        <th>Total Bill</th>
+        <th>{{ total }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+            <td>Staff Salary</td>
+            <td>{{ staff_total }}</td>
+        </tr>
+       <tr>
+        <td>Others Cost</td>
+        <td>{{ others_total }}</td>
+      </tr>
+    </tbody>
+  </table>
+<!--
+   <h5 class="text-center">Customer Account</h5>
+   <table class="table table-condensed">
+       <tbody>
+      <tr>
+        <td>Customer Name</td>
+        <td>{{ customer_details.name }}</td>
+      </tr>
+      <tr>
+        <td>Customer Mobile</td>
+        <td><a href="tel:+880{{ customer_details.mobile }}">+880{{ customer_details.mobile }}</a></td>
+      </tr>
+      <tr>
+        <td>Customer Email</td>
+        <td>{{ customer_details.email }}</td>
+      </tr>
+      <tr>
+        <td>Customer Address</td>
+        <td>{{ customer_details.address }}</td>
+      </tr>
+      <tr>
+        <td>Delivery Staff</td>
+        <td>{{ customer_details.staff }}</td>
+      </tr>
+      <tr>
+        <td>Jar Rate</td>
+        <td>{{ customer_details.jar_rate }}</td>
+      </tr>
+      <tr>
+        <td>Supply Begin</td>
+        <td>{{ customer_details.supply_begin }}</td>
+      </tr>
+       </tbody>
+   </table>
+-->
+
+</div>
+  </div>
+
+<div class="col-sm-8">
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <h5 class="text-center">Cost Add</h5>
+    {{ form }}
+    <button class="btn btn-danger" type="submit">Add</button>
+    </form>
+
+  <br>
+
+  <h5 class="text-center ">Cost List</h5>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cost Details</th>
+        <th>Cost Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for c in cost %}
+      <tr>
+        <td>{{ c.cost_details }}</td>
+        <td>{{ c.cost_amount }}</td>
+        <td>
+            <div class="text-center">
+              <a class="button btn btn-warning" href="{% url 'edit_cost' c.cost_id %}">Edit</a>
+          </div>
+        </td>
+      </tr>
+   {% endfor %}
+
+    <tr style="color: red">
+        <th>Total Cost:</th>
+        <th> {{ others_total }}</th>
+      </tr>
+    </tbody>
+     <thead>
+
+    </thead>
+
+  </table>
+ </div>
+</div>
+</div>
+
+{% endblock %}

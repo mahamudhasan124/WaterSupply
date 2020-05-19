@@ -120,7 +120,7 @@ def staff(request):
 
 @login_required(login_url='login')
 def customer(request):
-    customers = Customer.objects.all()
+    customers = Customer.objects.all().order_by('id')
 
     customer_filter = CustomerFilter(request.GET, queryset=customers)
     customers = customer_filter.qs
@@ -239,7 +239,7 @@ def add_order(request):
             return redirect('/order')
 
     today = datetime.today().date()
-    orders = Order.objects.filter(created__lte=today, created__gte=today)
+    orders = Order.objects.filter(created__lte=today, created__gte=today).order_by('customer_id')
 
     context = {'form': form, 'orders': orders, 'all_order': all_order}
     return render(request, 'pura/order.html', context)
@@ -281,11 +281,59 @@ def edit_order(request, pk):
 
 @login_required(login_url='login')
 def all_order(request):
-    all_order = Order.objects.all().order_by('-id')
+    all_order = Order.objects.all().order_by('-created','customer_id')
 
-    context = {'all_order': all_order, }
+    context = {'all_order': all_order,}
     return render(request, 'pura/all_order.html', context)
 
 
 def guideline(request):
     return render(request, 'pura/guideline.html')
+
+
+@login_required(login_url='login')
+def cost(request):
+    form = CostForm
+    if request.method == 'POST':
+        form = CostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/cost')
+
+    today = datetime.today().date()
+    cost = Cost.objects.filter(created__month=today.month, created__year=today.year)
+    others_total=0
+    for c in cost:
+        others_total += c.cost_amount
+
+    staffs = Staff.objects.all()
+    staff_total = 0
+    for staff in staffs:
+        staff_total += staff.salary
+
+    total = staff_total + others_total
+
+    context = {'form': form, 'cost':cost, 'others_total':others_total, 'staff_total':staff_total,
+               'total':total}
+    return render(request, 'pura/cost.html', context)
+
+
+@login_required(login_url='login')
+def edit_cost(request, pk):
+    cost_edit = Cost.objects.get(cost_id=pk)
+    form = CostForm(instance=cost_edit)
+
+    if request.method == 'POST':
+        form = CostForm(request.POST, instance=cost_edit)
+        if form.is_valid():
+            form.save()
+            return redirect('/cost')
+
+    context = {'form': form}
+    return render(request, 'pura/cost.html', context)
+
+
+def account(request):
+    return render(request, 'pura/account.html')
+
+

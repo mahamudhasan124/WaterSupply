@@ -141,3 +141,15 @@ class Order(models.Model):
     def taka_due_today(self):
         tk_due_today = self.total_bill_today() - self.tk_collect
         return tk_due_today
+
+
+class Cost(models.Model):
+    cost_id = models.AutoField(primary_key=True)
+    cost_details = models.CharField(max_length=255,blank=False)
+    cost_amount = models.PositiveIntegerField(blank=False)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.cost_details
+
+
