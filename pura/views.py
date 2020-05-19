@@ -207,7 +207,7 @@ def edit_staff(request, pk):
 
 @login_required(login_url='login')
 def delivery(request, pk):
-    customers = Customer.objects.filter(staff_id=pk)
+    customers = Customer.objects.filter(staff_id=pk).order_by('id')
     staff = Staff.objects.get(id=pk)
     customers_col1 = customers[:len(customers)//2]
     customers_col2 = customers[len(customers)//2:]
