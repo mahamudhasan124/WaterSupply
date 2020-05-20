@@ -19,7 +19,6 @@
     table, tr, th, td {
         border: 1px solid black;
         border-collapse: collapse;
-        width: 475px;
         padding: 0px;
         height: 35px;
     }
@@ -68,13 +67,12 @@
 
  <div class="px-5" id="print">
 
-<br>
-<h5  class="text-center">Date: {{ today|date:"D d M Y" }} &emsp;&emsp;&emsp;&emsp;{{ staff.name }} Delivery Report</h5>
+ <h5 class="text-center">PURA Drinking Water</h5>
+ <p class="text-center">286,Mohammad Para,Gopalganj,8100</p>
 
- <br>
- <div class="row">
- <div class="col">
-    <table>
+<h5  class="text-center">Date: {{ today|date:"D d M Y" }} &emsp;&emsp;&emsp;&emsp;{{ staff.name }} Daily Refill Chart</h5>
+ 
+    <table style="width:45%;display: inline-table;">
   <thead class="thead-light text-center" style="border-color: black">
     <tr>
       <th scope="col">ID</th>
@@ -99,9 +97,7 @@
   {% endfor %}
   </tbody>
 </table>
-    </div>
- <div class="col">
-    <table>
+    <table style="width:45%;display: inline-table;">
   <thead class="thead-light text-center">
     <tr>
       <th scope="col">ID</th>
@@ -126,10 +122,8 @@
   </tbody>
 </table>
     </div>
- </div>
- </div>
 
-</div>
+
 
 <!-- Two Column using nav bar -->
 <!--
@@ -201,6 +195,7 @@
 </div>
 
 -->
+
 
 {% endblock %}
 
