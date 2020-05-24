@@ -1,7 +1,6 @@
 {% extends 'pura/main.html' %}
 
 
-
 <script>
     function print(el) {
         var restorepage = document.body.innerHTML;
@@ -21,9 +20,15 @@
         border-collapse: collapse;
         padding: 0px;
         height: 33px;
-    }
-</style>
+        width: 90px;
 
+    }
+
+
+
+
+
+</style>
 
 <div>
     <nav class="navbar navbar-light bg-light">
@@ -61,19 +66,104 @@
     </nav>
 </div>
 -->
+<!--
+<div class="container" style="position: fixed;padding-left: 85px">
+    <h5 class="text-center">PURA Drinking Water</h5>
+    <p class="text-center">286,Mohammad Para,Gopalganj,8100</p>
+    <h5  class="text-center">Date: {{ today|date:"D d M Y" }} &emsp;&emsp;&emsp;&emsp;{{ staff.name }} Daily Refill Chart</h5>
+    <table style="width:48%;display: inline-table;">
+     <thead class="text-center" style="border-color: black">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Tk Due</th>
+          <th scope="col">Jar Due</th>
+          <th scope="col">Jar Given</th>
+          <th scope="col">Jar Collect</th>
+          <th scope="col">Tk Collect</th>
+        </tr>
+    </thead>
+    </table>
 
+    <table style="width:48%;display: inline-table;">
+    <thead style="border-color: black">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Tk Due</th>
+          <th scope="col">Jar Due</th>
+          <th scope="col">Jar Given</th>
+          <th scope="col">Jar Collect</th>
+          <th scope="col">Tk Collect</th>
+        </tr>
+    </thead>
+   </table>
+</div>
 
+<div class="container" style="padding-top: 150px">
 
+<table style="width:45%;display: inline-table;">
+    <tbody style="border-color: black">
+  {% for ca in customers_col1 %}
+
+    <tr >
+      <td class="text-center">{{ ca.id }}</td>
+      <td class="text-center">{{ ca.tk_previous_due }}</td>
+      <td class="text-center">{{ ca.jar_previous_due }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  {% endfor %}
+
+    <tr >
+      <td class="text-center">100</td>
+      <td class="text-center">100</td>
+      <td class="text-center">100</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<table style="width:45%;display: inline-table;">
+    <tbody style="border-color: black">
+  {% for ca in customers_col1 %}
+
+    <tr >
+      <td class="text-center">{{ ca.id }}</td>
+      <td class="text-center">{{ ca.tk_previous_due }}</td>
+      <td class="text-center">{{ ca.jar_previous_due }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  {% endfor %}
+
+    <tr >
+      <td class="text-center">100</td>
+      <td class="text-center">100</td>
+      <td class="text-center">100</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+</table>
+
+</div>
+-->
 
  <div class="px-5" id="print">
 
  <h5 class="text-center">PURA Drinking Water</h5>
  <p class="text-center">286,Mohammad Para,Gopalganj,8100</p>
+ <h6 class="text-center">Daily Refill Chart</h6>
 
-<h5  class="text-center">Date: {{ today|date:"D d M Y" }} &emsp;&emsp;&emsp;&emsp;{{ staff.name }} Daily Refill Chart</h5>
+
+<h5 class="text-center" >Date: {{ today|date:"D d M Y" }} &emsp;&emsp;&emsp;&emsp;Staff: {{ staff.name }}</h5>
 
     <table style="width:45%;display: inline-table;">
-  <thead class="thead-light text-center" style="border-color: black">
+  <thead class="thead-light text-center table-header-group" style="border-color: black">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Tk Due</th>
@@ -95,9 +185,13 @@
       <td></td>
     </tr>
   {% endfor %}
+
   </tbody>
 </table>
-    <table style="width:45%;display: inline-table;">
+
+&emsp;
+
+<table style="width:45%;display: inline-table;">
   <thead class="thead-light text-center">
     <tr>
       <th scope="col">ID</th>
@@ -120,6 +214,7 @@
     </tr>
   {% endfor %}
   </tbody>
+
 </table>
     </div>
 
