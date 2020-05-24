@@ -1,0 +1,104 @@
+{% extends 'pura/main.html' %}
+{% block content %}
+    <h4 class="text-center">Account Information</h4>
+
+    <div class="row">
+  <div class="col-sm-4">
+      <h5 class="text-center">Customer Summary</h5>
+  <div>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Total Customer</th>
+        <th>{{ customer_details.id }}</th>
+      </tr>
+
+
+    </thead>
+    <tbody>
+      <tr>
+            <td>Customer Previous Taka Due</td>
+            <td>{{ customer_details.tk_previous_due }}</td>
+        </tr>
+       <tr>
+        <td>Customer Previous Jar Due</td>
+        <td>{{ customer_details.jar_previous_due }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+   <h5 class="text-center">Customer Account</h5>
+   <table class="table table-condensed">
+       <tbody>
+            <tr>
+        <td>Customer Name</td>
+        <td>{{ customer_details.name }}</td>
+      </tr>
+      <tr>
+        <td>Customer Mobile</td>
+        <td><a href="tel:+880{{ customer_details.mobile }}">+880{{ customer_details.mobile }}</a></td>
+      </tr>
+      <tr>
+        <td>Customer Email</td>
+        <td>{{ customer_details.email }}</td>
+      </tr>
+      <tr>
+        <td>Customer Address</td>
+        <td>{{ customer_details.address }}</td>
+      </tr>
+      <tr>
+        <td>Delivery Staff</td>
+        <td>{{ customer_details.staff }}</td>
+      </tr>
+      <tr>
+        <td>Jar Rate</td>
+        <td>{{ customer_details.jar_rate }}</td>
+      </tr>
+      <tr>
+        <td>Supply Begin</td>
+        <td>{{ customer_details.supply_begin }}</td>
+      </tr>
+       </tbody>
+   </table>
+</div>
+
+  </div>
+  <div class="col-sm-8">
+      <h5 class="text-center ">Customer Order History</h5>
+
+      <div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order Date</th>
+        <th>Jar Given</th>
+        <th>Jar Collect</th>
+        <th>Jar Due</th>
+        <th>Total Bill</th>
+        <th>Taka Collect</th>
+        <th>Taka Due</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for order in customer_orders %}
+      <tr>
+        <td>{{ order.created }}</td>
+        <td>{{ order.jar_given }}</td>
+        <td>{{ order.jar_collect }}</td>
+        <td>{{ order.jar_due_today }}</td>
+        <td>{{ order.total_bill_today }}</td>
+        <td>{{ order.tk_collect }}</td>
+        <td>{{ order.taka_due_today }}</td>
+
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+  </div>
+
+</div>
+
+
+{% endblock %}

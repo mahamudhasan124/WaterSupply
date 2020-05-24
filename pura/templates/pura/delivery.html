@@ -24,6 +24,15 @@
 
     }
 
+ @media print
+        {
+            tbody {
+                page-break-inside: avoid;
+            }
+            thead {
+                display: table-header-group;
+            }
+        }
 
 
 
@@ -152,7 +161,7 @@
 
 </div>
 -->
-
+<!--
  <div class="px-5" id="print">
 
  <h5 class="text-center">PURA Drinking Water</h5>
@@ -217,6 +226,79 @@
 
 </table>
     </div>
+
+-->
+    <div class="px-5" id="print">
+  <div>
+
+  <h3 class="text-center">PURA Drinking Water</h3>
+ <h6 class="text-center">286,Mohammad Para,Gopalganj,8100</h6>
+ <h6 class="text-center">Daily Refill Chart</h6>
+<h6 class="text-center" >Date: {{ today|date:"D d M Y" }} &emsp;&emsp;&emsp;&emsp;Staff: {{ staff.name }}</h6>
+
+</div>
+ <div>
+           <table style="width:49%;display: inline-table;float: left;">
+  <thead class="thead-light text-center table-header-group" style="border-color: black">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Tk Due</th>
+      <th scope="col">Jar Due</th>
+      <th scope="col">Jar Given</th>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">Tk Collect</th>
+    </tr>
+  </thead>
+  <tbody style="border-color: black">
+
+  {% for ca in customers_col1 %}
+
+    <tr >
+      <td class="text-center">{{ ca.id }}</td>
+      <td class="text-center">{{ ca.tk_previous_due }}</td>
+      <td class="text-center">{{ ca.jar_previous_due }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  {% endfor %}
+
+
+  </tbody>
+
+
+</table>
+    <table style="width:49%;display: inline-table; float: right;">
+  <thead class="thead-light text-center">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Tk Due</th>
+      <th scope="col">Jar Due</th>
+      <th scope="col">Jar Given</th>
+      <th scope="col">Jar Collect</th>
+      <th scope="col">Tk Collect</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for ca in customers_col2 %}
+    <tr>
+      <td class="text-center">{{ ca.id }}</td>
+      <td class="text-center">{{ ca.tk_previous_due }}</td>
+      <td class="text-center">{{ ca.jar_previous_due }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+
+</table>
+ </div>
+</div>
+
+
 
 
 
