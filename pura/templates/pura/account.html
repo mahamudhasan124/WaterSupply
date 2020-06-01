@@ -1,104 +1,189 @@
 {% extends 'pura/main.html' %}
 {% block content %}
-    <h4 class="text-center">Account Information</h4>
 
-    <div class="row">
-  <div class="col-sm-4">
-      <h5 class="text-center">Customer Summary</h5>
-  <div>
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Total Customer</th>
-        <th>{{ customer_details.id }}</th>
-      </tr>
+<div>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+           <ul class="navbar-nav">
+                <li>
+                    <a class="btn btn-outline-primary" href="#">Previous</a>
+                </li>
+            </ul>
+             <ul class="navbar-nav">
+                <li>
+                    <a class="btn btn-outline-primary" href="#">Today</a>
+                </li>
+            </ul>
 
 
-    </thead>
+            <ul class="navbar-nav">
+                <li>
+                    <a class="btn btn-outline-primary" href="#">Next</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+    <h5 class="text-center">Account Information</h5>
+<br>
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center  mb-3">
+			  	<div class="card-header text-center bg-info">
+			  		<h5 class="card-title ">Total Tk Collect</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ monthly_result.tk_collect }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center mb-3">
+			  	<div class="card-header text-center bg-warning">
+			  		<h5 class="card-title">Total Cost</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ total_cost }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center mb-3">
+			  	<div class="card-header text-center bg-success">
+			  		<h5 class="card-title">Profit</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ profit }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+
+		<div class="card card-body">
+			<h6 class="btn btn-primary  btn-sm btn-block">Summary of this month</h6>
+			<table class="table table-sm">
+				<tr class="table-secondary">
+					<th>Title</th>
+					<th>Number/Amount</th>
+				</tr>
+
     <tbody>
-      <tr>
-            <td>Customer Previous Taka Due</td>
-            <td>{{ customer_details.tk_previous_due }}</td>
+        <tr class="table-info">
+          <td>Total Customer</td>
+          <td>{{ customer_number }}</td>
         </tr>
-       <tr>
-        <td>Customer Previous Jar Due</td>
-        <td>{{ customer_details.jar_previous_due }}</td>
-      </tr>
-
+        <tr class="table-info">
+          <td>Total Staff</td>
+          <td>{{ staff_number }}</td>
+        </tr>
+       <tr class="table-warning">
+        <td>Total Jar Given</td>
+        <td>{{ monthly_result.jar_given }}</td>
+       </tr>
+       <tr class="table-warning">
+        <td>Total Jar Collect</td>
+        <td>{{ monthly_result.jar_collect }}</td>
+       </tr>
+       <tr class="table-warning">
+        <td>Total Jar Due</td>
+        <td>{{ monthly_result.jar_previous_due }}</td>
+       </tr>
+       <tr class="table-danger">
+        <td>Total Bill</td>
+        <td>{{ monthly_result.total_taka }}</td>
+       </tr>
+       <tr class="table-danger">
+        <td>Total Taka Collect</td>
+        <td>{{ monthly_result.tk_collect }}</td>
+       </tr>
+       <tr class="table-danger">
+        <td>Total Due</td>
+        <td>{{ monthly_result.tk_previous_due }}</td>
+       </tr>
+       <tr class="table-primary">
+        <td>Staff Salary</td>
+        <td>{{ staff_total }}</td>
+       </tr>
+       <tr class="table-primary">
+        <td>Other Cost Total</td>
+        <td>{{ others_total }}</td>
+       </tr>
+       <tr class="table-primary">
+        <td>Total Cost</td>
+        <td>{{ total_cost }}</td>
+       </tr>
+       <tr class="table-success">
+        <td>Profit</td>
+        <td>{{ profit }}</td>
+       </tr>
     </tbody>
-  </table>
-   <h5 class="text-center">Customer Account</h5>
-   <table class="table table-condensed">
-       <tbody>
-            <tr>
-        <td>Customer Name</td>
-        <td>{{ customer_details.name }}</td>
-      </tr>
-      <tr>
-        <td>Customer Mobile</td>
-        <td><a href="tel:+880{{ customer_details.mobile }}">+880{{ customer_details.mobile }}</a></td>
-      </tr>
-      <tr>
-        <td>Customer Email</td>
-        <td>{{ customer_details.email }}</td>
-      </tr>
-      <tr>
-        <td>Customer Address</td>
-        <td>{{ customer_details.address }}</td>
-      </tr>
-      <tr>
-        <td>Delivery Staff</td>
-        <td>{{ customer_details.staff }}</td>
-      </tr>
-      <tr>
-        <td>Jar Rate</td>
-        <td>{{ customer_details.jar_rate }}</td>
-      </tr>
-      <tr>
-        <td>Supply Begin</td>
-        <td>{{ customer_details.supply_begin }}</td>
-      </tr>
-       </tbody>
-   </table>
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<div class="card card-body">
+			<h6 class="btn btn-primary  btn-sm btn-block" >Staff Summary</h6>
+			<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Jar Given</th>
+					<th>Jar Collect</th>
+                    <th>Jar Due</th>
+					<th>Total Bill</th>
+					<th>Tk Collect</th>
+                    <th>Tk Due</th>
+				</tr>
+
+            {% for s in staffs %}
+                <tr>
+					<th>{{ s.name }}</th>
+					<th>{{ s.get_staff_monthly_calculation.jar_given }}</th>
+					<th>{{ s.get_staff_monthly_calculation.jar_collect }}</th>
+                    <th>{{ s.get_staff_monthly_calculation.jar_previous_due }}</th>
+					<th>{{ s.get_staff_monthly_calculation.total_taka }}</th>
+					<th>{{ s.get_staff_monthly_calculation.tk_collect }}</th>
+                    <th>{{ s.get_staff_monthly_calculation.tk_previous_due }}</th>
+				</tr>
+            {% endfor %}
+			</table>
+		</div>
+        <br>
+        <div class="card card-body">
+			<h6 class="btn btn-primary  btn-sm btn-block" >Cost Details</h6>
+			<table class="table table-sm">
+				<tr>
+					<th>Date</th>
+					<th>Cost Name</th>
+					<th>Cost Amount</th>
+				</tr>
+                {% for c in cost %}
+                <tr>
+					<th>{{ c.created }}</th>
+					<th>{{ c.cost_details }}</th>
+					<th>{{ c.cost_amount }}</th>
+				</tr>
+                {% endfor %}
+			</table>
+		</div>
+	</div>
 </div>
-
-  </div>
-  <div class="col-sm-8">
-      <h5 class="text-center ">Customer Order History</h5>
-
-      <div class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Order Date</th>
-        <th>Jar Given</th>
-        <th>Jar Collect</th>
-        <th>Jar Due</th>
-        <th>Total Bill</th>
-        <th>Taka Collect</th>
-        <th>Taka Due</th>
-
-      </tr>
-    </thead>
-    <tbody>
-    {% for order in customer_orders %}
-      <tr>
-        <td>{{ order.created }}</td>
-        <td>{{ order.jar_given }}</td>
-        <td>{{ order.jar_collect }}</td>
-        <td>{{ order.jar_due_today }}</td>
-        <td>{{ order.total_bill_today }}</td>
-        <td>{{ order.tk_collect }}</td>
-        <td>{{ order.taka_due_today }}</td>
-
-      </tr>
-     {% endfor %}
-    </tbody>
-  </table>
-</div>
-  </div>
-
-</div>
-
 
 {% endblock %}

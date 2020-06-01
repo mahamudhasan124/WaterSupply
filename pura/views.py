@@ -334,6 +334,62 @@ def edit_cost(request, pk):
 
 
 def account(request):
-    return render(request, 'pura/account.html')
+    staff_number = Staff.objects.all().count()
+    staffs = Staff.objects.all()
+    customer_number = Customer.objects.all().count()
+
+    today = datetime.today()
+    monthly_order = Order.objects.filter(created__month=today.month, created__year=today.year)
+
+    jar_given = monthly_order.aggregate(sum=Sum('jar_given')).get('sum') or 0
+    jar_collect = monthly_order.aggregate(sum=Sum('jar_collect')).get('sum') or 0
+    tk_collect = monthly_order.aggregate(sum=Sum('tk_collect')).get('sum') or 0
+
+    total_taka = 0
+    for order in monthly_order:
+        total_taka += order.customer_id.jar_rate * order.jar_given
+
+    monthly_order = Customer.objects.filter(created__month=today.month, created__year=today.year)
+    tk_previous_due = monthly_order.aggregate(sum=Sum('tk_previous_due')).get('sum') or 0
+    jar_previous_due = monthly_order.aggregate(sum=Sum('jar_previous_due')).get('sum') or 0
+    # tk_previous_due = total_taka - tk_collect
+    # jar_previous_due = jar_given - jar_collect
+
+    monthly_result = {
+        "jar_given": jar_given,
+        "jar_collect": jar_collect,
+        "tk_collect": tk_collect,
+        "tk_previous_due": tk_previous_due,
+        "jar_previous_due": jar_previous_due,
+        "total_taka": total_taka,
+    }
+
+    cost = Cost.objects.filter(created__month=today.month, created__year=today.year)
+    others_total = 0
+    for c in cost:
+        others_total += c.cost_amount
+
+    staffs = Staff.objects.all()
+    staff_total = 0
+    for staff in staffs:
+        staff_total += staff.salary
+
+    total_cost = staff_total + others_total
+    profit = tk_collect - total_cost
+
+
+    context = {
+        'staff_number':staff_number,
+        'staffs':staffs,
+        'customer_number':customer_number,
+        'monthly_result':monthly_result,
+        'others_total':others_total,
+        'staff_total':staff_total,
+        'total_cost':total_cost,
+        'cost':cost,
+        'profit':profit,
+
+    }
+    return render(request, 'pura/account.html', context)
 
 
