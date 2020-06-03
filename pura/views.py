@@ -209,11 +209,17 @@ def edit_staff(request, pk):
 def delivery(request, pk):
     customers = Customer.objects.filter(staff_id=pk).order_by('id')
     staff = Staff.objects.get(id=pk)
-    customers_col1 = customers[:len(customers)//2]
-    customers_col2 = customers[len(customers)//2:]
+    customers_col1, customers_col2 = customers[::2], customers[1::2]
     today = datetime.today().date()
+    bar_find = datetime.today()
+    bar = bar_find.strftime('%A')
 
-    context = {'customers_col1': customers_col1,'customers_col2': customers_col2, 'staff': staff, 'today': today, 'delivery': delivery}
+    context = {'customers_col1': customers_col1,
+               'customers_col2': customers_col2,
+               'staff': staff, 'today': today,
+               'delivery': delivery,
+               'bar':bar,
+               }
     return render(request, 'pura/delivery.html', context)
 
 
