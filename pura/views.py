@@ -162,7 +162,6 @@ def delete_customer(request, pk):
     customer = Customer.objects.get(id=pk)
     if request.method == 'POST':
         customer.delete()
-        customer.save()
         return redirect('/customer')
 
     context = {'item': customer}
@@ -230,13 +229,13 @@ def staff_details_today(request, pk):
 
     context = {
         'total_jar_given_today': total_jar_given_today,
-
     }
     return render(request, 'pura/staff.html', context)
 
 
 @login_required(login_url='login')
 def add_order(request):
+
     form = OrderForm
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -247,7 +246,7 @@ def add_order(request):
     today = datetime.today().date()
     orders = Order.objects.filter(created__lte=today, created__gte=today).order_by('customer_id')
 
-    context = {'form': form, 'orders': orders, 'all_order': all_order}
+    context = {'form': form, 'orders': orders,}
     return render(request, 'pura/order.html', context)
 
 

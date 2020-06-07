@@ -87,6 +87,9 @@ class Customer(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateField(auto_now=True)
 
+    class Meta:
+        ordering = ('id',)
+
     # def total_bill(self):
     #     total_bill =
 
@@ -100,6 +103,7 @@ class Order(models.Model):
     jar_collect = models.IntegerField(blank=True, null=True, default=0)
     tk_collect = models.IntegerField(blank=True, null=True, default=0)
     created = models.DateField(auto_now_add=True)
+
 
 
     def __str__(self):
