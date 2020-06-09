@@ -57,10 +57,10 @@ class Staff(models.Model):
             total_taka += order.customer_id.jar_rate * order.jar_given
 
         staff_all_customer = Customer.objects.filter(staff__id=self.id)
-        #tk_previous_due = staff_all_customer.aggregate(sum=Sum('tk_previous_due')).get('sum', 0) or 0
-        #jar_previous_due = staff_all_customer.aggregate(sum=Sum('jar_previous_due')).get('sum', 0) or 0
-        tk_previous_due = total_taka - tk_collect
-        jar_previous_due = jar_given - jar_collect
+        tk_previous_due = staff_all_customer.aggregate(sum=Sum('tk_previous_due')).get('sum', 0) or 0
+        jar_previous_due = staff_all_customer.aggregate(sum=Sum('jar_previous_due')).get('sum', 0) or 0
+        #tk_previous_due = total_taka - tk_collect
+        #jar_previous_due = jar_given - jar_collect
 
         result = {
             "jar_given": jar_given,
