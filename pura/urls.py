@@ -5,6 +5,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
+    path('',views.landing_page, name='landing'),
     path('', views.home, name='home'),
     path('guideline/',views.guideline, name='guideline'),
 

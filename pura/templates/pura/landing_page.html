@@ -1,0 +1,33 @@
+{% extends 'pura/main.html' %}
+
+{% block content %}
+
+<div class="card-deck p-5">
+
+    <div class="card">
+        <h5 class="card-header text-center bg-info">Customer Information</h5>
+{#        <h5 class="card-header text-center bg-info">{{ s.get_staff_daily_calculation }}</h5>#}
+{#        <h5 class="card-header text-center bg-info">{{ s.get_staff_monthly_calculation }}</h5>#}
+      <div class="card-body">
+
+       <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+    <tr>
+      <th scope="col">Customer Id</th>
+      <th scope="col">Customer Taka Due</th>
+      <th scope="col">Customer Jar Due</th>
+    </tr>
+  </thead>
+ {% for c in customers %}
+  <tbody>
+    <td scope="col">{{ c.id }}</td>
+    <td scope="col">{{ c.tk_previous_due }}</td>
+    <td scope="col">{{ c.jar_previous_due }}</td>
+  </tbody>
+ {% endfor %}
+</table>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

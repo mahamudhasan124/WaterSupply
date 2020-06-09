@@ -1,6 +1,5 @@
 {% extends 'pura/main.html' %}
 
-
 <script>
     function print(el) {
         var restorepage = document.body.innerHTML;
@@ -33,9 +32,6 @@
                 display: table-header-group;
             }
         }
-
-
-
 
 </style>
 
@@ -228,16 +224,17 @@
     </div>
 
 -->
-    <div class="px-5" id="print">
-  <div>
 
-  <h3 class="text-center">PURA Drinking Water</h3>
- <h6 class="text-center">286,Mohammad Para,Gopalganj,8100</h6>
- <h6 class="text-center">Date: {{ today|date:"d M Y" }} &emsp;&emsp;&emsp;&emsp;&emsp; Daily Refill Chart &emsp;&emsp;&emsp;&emsp;&emsp; Bar: {{ bar }}</h6>
+<div class="px-5" id="print">
+<div>
+
+<h3 class="text-center">PURA Drinking Water</h3>
+<h6 class="text-center">286,Mohammad Para,Gopalganj,8100</h6>
+<h6 class="text-center">Date: {{ today|date:"d M Y" }} &emsp;&emsp;&emsp;&emsp;&emsp; Daily Refill Chart &emsp;&emsp;&emsp;&emsp;&emsp; Bar: {{ bar }}</h6>
 <h6 class="text-center" >Staff: {{ staff.name }}</h6>
 
 </div>
- <div>
+<div>
            <table style="width:49%;display: inline-table;float: left;">
   <thead class="thead-light text-center table-header-group" style="border-color: black">
     <tr>
@@ -265,7 +262,6 @@
 
 
   </tbody>
-
 
 </table>
     <table style="width:49%;display: inline-table; float: right;">
@@ -297,10 +293,6 @@
 </table>
  </div>
 </div>
-
-
-
-
 
 <!-- Two Column using nav bar -->
 <!--

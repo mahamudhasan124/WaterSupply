@@ -32,7 +32,7 @@ def login_page(request):
 
 def logout_admin(request):
     logout(request)
-    return redirect('login')
+    return redirect('landing')
 
 
 @login_required(login_url='login')
@@ -397,4 +397,11 @@ def account(request):
     }
     return render(request, 'pura/account.html', context)
 
+
+
+def landing_page(request):
+    customers = Customer.objects.all().order_by('id')
+
+    context = {'customers':customers,}
+    return render(request, 'pura/landing_page.html', context)
 
