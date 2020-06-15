@@ -6,7 +6,7 @@
         <div class="container">
            <ul class="navbar-nav">
                 <li>
-                    <a class="btn btn-outline-primary" href="#">Previous</a>
+                    <a class="btn btn-outline-primary" href="{{ previous_month }}">Previous</a>
                 </li>
             </ul>
              <ul class="navbar-nav">
@@ -18,7 +18,7 @@
 
             <ul class="navbar-nav">
                 <li>
-                    <a class="btn btn-outline-primary" href="#">Next</a>
+                    <a class="btn btn-outline-primary" href="{{ next_month }}">Next</a>
                 </li>
             </ul>
 
@@ -184,9 +184,6 @@
 			</table>
 		</div>
 
-        <a href={{ previous_month }}>{{ previous_month }}</a>
-        <br>
-        <a href={{ next_month }}>{{ next_month }}</a>
 	</div>
 
 
