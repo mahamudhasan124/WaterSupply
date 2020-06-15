@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
@@ -8,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 
 def login_page(request):
@@ -338,13 +341,20 @@ def edit_cost(request, pk):
     return render(request, 'pura/cost.html', context)
 
 
-def account(request):
+def account(request, year_month=None):
     staff_number = Staff.objects.all().count()
     staffs = Staff.objects.all()
     customer_number = Customer.objects.all().count()
 
-    today = datetime.today()
-    monthly_order = Order.objects.filter(created__month=today.month, created__year=today.year)
+    if year_month:
+        # 202011
+        year = int(year_month / 100)
+        month = int(year_month % 100)
+        time = datetime(year, month, 1)
+    else:
+        time = datetime.today()
+
+    monthly_order = Order.objects.filter(created__month=time.month, created__year=time.year)
 
     jar_given = monthly_order.aggregate(sum=Sum('jar_given')).get('sum') or 0
     jar_collect = monthly_order.aggregate(sum=Sum('jar_collect')).get('sum') or 0
@@ -354,7 +364,7 @@ def account(request):
     for order in monthly_order:
         total_taka += order.customer_id.jar_rate * order.jar_given
 
-    monthly_order = Customer.objects.filter(created__month=today.month, created__year=today.year)
+    monthly_order = Customer.objects.filter(created__month=time.month, created__year=time.year)
     tk_previous_due = monthly_order.aggregate(sum=Sum('tk_previous_due')).get('sum') or 0
     jar_previous_due = monthly_order.aggregate(sum=Sum('jar_previous_due')).get('sum') or 0
     # tk_previous_due = total_taka - tk_collect
@@ -369,7 +379,7 @@ def account(request):
         "total_taka": total_taka,
     }
 
-    cost = Cost.objects.filter(created__month=today.month, created__year=today.year)
+    cost = Cost.objects.filter(created__month=time.month, created__year=time.year)
     others_total = 0
     for c in cost:
         others_total += c.cost_amount
@@ -382,6 +392,8 @@ def account(request):
     total_cost = staff_total + others_total
     profit = tk_collect - total_cost
 
+    previous_month = (time.replace(day=1) - timedelta(days=1)).strftime("%Y%m")
+    next_month = (time.replace(day=28) + timedelta(days=5)).strftime("%Y%m")
 
     context = {
         'staff_number':staff_number,
@@ -394,6 +406,8 @@ def account(request):
         'cost':cost,
         'profit':profit,
 
+        'previous_month': f'/account/{previous_month}/',
+        'next_month': f'/account/{next_month}/'
     }
     return render(request, 'pura/account.html', context)
 

@@ -40,6 +40,7 @@ urlpatterns = [
     path('edit_cost/<str:pk>/', views.edit_cost, name='edit_cost'),
 
     path('account/', views.account, name='account'),
+    path('account/<int:year_month>/', views.account, name='account_with_time'),
 
 
 ]
