@@ -44,10 +44,16 @@ class Staff(models.Model):
         }
         return result
 
-    def get_staff_monthly_calculation(self):
-        today = datetime.today()
-        staff_all_orders = Order.objects.filter(customer_id__staff__id=self.id, created__month=today.month,
-                                                created__year=today.year)
+    def get_staff_monthly_calculation(self, year_month=None):
+        if year_month:
+            year = int(year_month / 100)
+            month = int(year_month % 100)
+            time = datetime(year, month, 1)
+        else:
+            time = datetime.today()
+
+        staff_all_orders = Order.objects.filter(customer_id__staff__id=self.id, created__month=time.month,
+                                                created__year=time.year)
         jar_given = staff_all_orders.aggregate(sum=Sum('jar_given')).get('sum', 0) or 0
         jar_collect = staff_all_orders.aggregate(sum=Sum('jar_collect')).get('sum', 0) or 0
         tk_collect = staff_all_orders.aggregate(sum=Sum('tk_collect')).get('sum', 0) or 0

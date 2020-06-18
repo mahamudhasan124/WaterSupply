@@ -395,6 +395,20 @@ def account(request, year_month=None):
     previous_month = (time.replace(day=1) - timedelta(days=1)).strftime("%Y%m")
     next_month = (time.replace(day=28) + timedelta(days=5)).strftime("%Y%m")
 
+    staffs_overview_list = []
+    for st in staffs:
+        s = st.get_staff_monthly_calculation(year_month=year_month)
+        staff_overview = {
+            'name': st.name,
+            'jar_given': s['jar_given'],
+            'jar_collect': s['jar_collect'],
+            'total_taka': s['total_taka'],
+            'tk_collect': s['tk_collect'],
+        }
+        staffs_overview_list.append(staff_overview)
+
+
+
     context = {
         'staff_number':staff_number,
         'staffs':staffs,
@@ -405,6 +419,7 @@ def account(request, year_month=None):
         'total_cost':total_cost,
         'cost':cost,
         'profit':profit,
+        'staffs_overview_list':staffs_overview_list,
 
         'previous_month': f'/account/{previous_month}/',
         'next_month': f'/account/{next_month}/'
