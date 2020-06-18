@@ -152,15 +152,15 @@
                     <th>Tk Due</th>
 				</tr>
 
-            {% for s in staffs %}
+            {% for s in staffs_overview_list %}
                 <tr>
 					<th>{{ s.name }}</th>
-					<th>{{ s.get_staff_monthly_calculation.jar_given }}</th>
-					<th>{{ s.get_staff_monthly_calculation.jar_collect }}</th>
-                    <th>{{ s.get_staff_monthly_calculation.jar_previous_due }}</th>
-					<th>{{ s.get_staff_monthly_calculation.total_taka }}</th>
-					<th>{{ s.get_staff_monthly_calculation.tk_collect }}</th>
-                    <th>{{ s.get_staff_monthly_calculation.tk_previous_due }}</th>
+					<th>{{ s.jar_given }}</th>
+					<th>{{ s.jar_collect }}</th>
+					<th>{{ s.due }}</th>
+					<th>{{ s.total_taka }}</th>
+					<th>{{ s.tk_collect }}</th>
+					<th>{{ s.tk__due }}</th>
 				</tr>
             {% endfor %}
 			</table>
