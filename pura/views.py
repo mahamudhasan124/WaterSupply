@@ -343,7 +343,7 @@ def edit_cost(request, pk):
 
 def account(request, year_month=None):
     staff_number = Staff.objects.all().count()
-    staffs = Staff.objects.all()
+
     customer_number = Customer.objects.all().count()
 
     if year_month:
@@ -391,9 +391,11 @@ def account(request, year_month=None):
 
     total_cost = staff_total + others_total
     profit = tk_collect - total_cost
-
     previous_month = (time.replace(day=1) - timedelta(days=1)).strftime("%Y%m")
     next_month = (time.replace(day=28) + timedelta(days=5)).strftime("%Y%m")
+    month = time.strftime('%B')
+    staffs = Staff.objects.all()
+    staffs_info = Staff.objects.all().filter()
 
     staffs_overview_list = []
     for st in staffs:
@@ -422,7 +424,8 @@ def account(request, year_month=None):
         'staffs_overview_list':staffs_overview_list,
 
         'previous_month': f'/account/{previous_month}/',
-        'next_month': f'/account/{next_month}/'
+        'next_month': f'/account/{next_month}/',
+        'month': month,
     }
     return render(request, 'pura/account.html', context)
 
