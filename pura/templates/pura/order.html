@@ -1,15 +1,25 @@
 {% extends 'pura/main.html' %}
 
 {% block content %}
-
+ <div class="pl-2" style="align-content: center">
     <form action="" method="POST">
     {% csrf_token %}
     <h5 class="text-center">Order Today</h5>
-    {{ form }}
+
+    <p></p>
+    <label>Customer ID</label>
+    {{ form.customer_id }}
+    <label>Jar Given</label>
+    {{ form.jar_given }}
+    <label>Jar Collect</label>
+    {{ form.jar_collect }}
+    <label>Taka Collect</label>
+    {{ form.tk_collect }}
+
     <button class="btn btn-info" type="submit">Add</button>
     <a type="btn btn-info" href="{% url 'all_order' %}">All Order</a>
     </form>
-
+ </div>
     <br>
     <h6 class="text-center">Today's Order List</h6>
 <div class="container">

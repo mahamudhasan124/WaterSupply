@@ -274,7 +274,8 @@ def edit_order(request,pk):
 
 @login_required(login_url='login')
 def edit_order(request, pk):
-    order = Order.objects.get(customer_id=pk)
+    today = datetime.today().date()
+    order = Order.objects.get(customer_id=pk, created__lte=today, created__gte=today)
     form = OrderForm(instance=order)
 
     if request.method == 'POST':
@@ -365,10 +366,10 @@ def account(request, year_month=None):
         total_taka += order.customer_id.jar_rate * order.jar_given
 
     monthly_order = Customer.objects.filter(created__month=time.month, created__year=time.year)
-    tk_previous_due = monthly_order.aggregate(sum=Sum('tk_previous_due')).get('sum') or 0
-    jar_previous_due = monthly_order.aggregate(sum=Sum('jar_previous_due')).get('sum') or 0
-    # tk_previous_due = total_taka - tk_collect
-    # jar_previous_due = jar_given - jar_collect
+    #tk_previous_due = monthly_order.aggregate(sum=Sum('tk_previous_due')).get('sum') or 0
+    #jar_previous_due = monthly_order.aggregate(sum=Sum('jar_previous_due')).get('sum') or 0
+    tk_previous_due = total_taka - tk_collect
+    jar_previous_due = jar_given - jar_collect
 
     monthly_result = {
         "jar_given": jar_given,
