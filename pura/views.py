@@ -404,8 +404,10 @@ def account(request, year_month=None):
             'name': st.name,
             'jar_given': s['jar_given'],
             'jar_collect': s['jar_collect'],
+            'jar_due':s['jar_due'],
             'total_taka': s['total_taka'],
             'tk_collect': s['tk_collect'],
+            'tk_due':s['tk_due'],
         }
         staffs_overview_list.append(staff_overview)
 
