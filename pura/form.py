@@ -37,18 +37,21 @@ class OrderForm(ModelForm):
         jar_given = cleaned_data.get('jar_given')
         jar_collect = cleaned_data.get('jar_collect')
         tk_collect = cleaned_data.get('tk_collect')
-        today = datetime.today().date()
-        order = Order.objects.all().filter(created__gte=today, created__lte=today)
         if jar_given == 0 and jar_collect==0 and tk_collect==0:
             raise forms.ValidationError('All value can not be 0')
-
-    def clean_customer_id(self):
-        customer = self.cleaned_data['customer_id']
         today = datetime.today().date()
-        ordered_customer = Order.objects.filter(created__lte=today, created__gte=today)
-
-        if customer in ordered_customer:
+        ordered_customer = Order.objects.filter(created=today, customer_id=cleaned_data.get('customer_id'))
+        if ordered_customer:
             raise forms.ValidationError('Already used ID')
+        return cleaned_data
+
+    # def clean_customer_id(self):
+    #     customer = self.cleaned_data['customer_id']
+    #     today = datetime.today().date()
+    #     ordered_customer = Order.objects.filter(created__lte=today, created__gte=today)
+    #
+    #     if customer in ordered_customer:
+    #         raise forms.ValidationError('Already used ID')
 
 
 '''        
