@@ -20,6 +20,11 @@
     <a type="btn btn-info" href="{% url 'all_order' %}">All Order</a>
     </form>
  </div>
+    <div class="pl-5">
+         {% for error in form.non_field_errors %}
+             <p class="text-danger">{{ error }}</p>
+         {% endfor %}
+     </div>
     <br>
     <h6 class="text-center">Today's Order List</h6>
 <div class="container">

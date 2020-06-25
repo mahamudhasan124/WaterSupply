@@ -1,5 +1,4 @@
 from datetime import timedelta
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
@@ -437,6 +436,6 @@ def account(request, year_month=None):
 def landing_page(request):
     customers = Customer.objects.all().order_by('id')
 
-    context = {'customers':customers,}
+    context = {'customers':customers, }
     return render(request, 'pura/landing_page.html', context)
 
