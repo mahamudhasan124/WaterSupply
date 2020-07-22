@@ -24,6 +24,7 @@ urlpatterns = [
     path('staff/', views.staff, name='staff'),
     path('add_staff',views.add_staff, name='add_staff'),
     path('edit_staff/<str:pk>/',views.edit_staff, name='edit_staff'),
+    path('order_date/<str:pk>/',views.order_date, name='order_date'),
 
     path('delivery/<str:pk>/', views.delivery, name='delivery'),
 
@@ -41,6 +42,7 @@ urlpatterns = [
 
     path('account/', views.account, name='account'),
     path('account/<int:year_month>/', views.account, name='account_with_time'),
+    path('customer_priority',views.customer_priority, name='customer_priority'),
 
 
 ]

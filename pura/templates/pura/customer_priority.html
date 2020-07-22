@@ -1,0 +1,48 @@
+{% extends 'pura/main.html' %}
+{% block content %}
+    <div class="card-deck p-5">
+
+    <div class="card">
+        <h5 class="card-header text-center bg-info">Customer Priority Information</h5>
+{#        <h5 class="card-header text-center bg-info">{{ s.get_staff_daily_calculation }}</h5>#}
+{#        <h5 class="card-header text-center bg-info">{{ s.get_staff_monthly_calculation }}</h5>#}
+      <div class="card-body">
+
+       <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+    <tr>
+      <th class="text-center bg-success" scope="col">Green Customer</th>
+      <th class="text-center bg-warning" scope="col">Yellow Customer</th>
+      <th class="text-center bg-danger" scope="col">Red Customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <td>
+    <div>
+        {% for g in green_customer %}
+            {{ g.customer_id }}
+        {% endfor %}
+    </div>
+
+    </td>
+    <td scope="col">
+        {% for y in yellow_customer %}
+            <p>{{ y.customer_id }} </p>
+        {% endfor %}
+    </td>
+    <td scope="col">
+        {% for r in red_customer %}
+            {{ r.customer_id }},
+        {% endfor %}
+    </td>
+  </tbody>
+</table>
+      </div>
+    </div>
+</div>
+
+        {% for g in green_customer %}
+            {{ g.customer_id }}
+        {% endfor %}
+
+{% endblock %}

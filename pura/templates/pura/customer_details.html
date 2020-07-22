@@ -61,8 +61,16 @@
 
   </div>
   <div class="col-sm-8">
-      <h5 class="text-center ">Customer Order History</h5>
+      <div>
+      <br>
+          <h5 class="text-center">This month Order Date</h5>
+          {% for order in orders %}
+              {{ order.created }},
+          {% endfor %}
+          <hr>
 
+      </div>
+      <h5 class="text-center ">Customer Order History</h5>
       <div class="container">
   <table class="table">
     <thead>

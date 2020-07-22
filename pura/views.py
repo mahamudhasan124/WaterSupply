@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date,timedelta, datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
@@ -114,7 +114,7 @@ def home(request):
 
 @login_required(login_url='login')
 def staff(request):
-    staffs = Staff.objects.all()
+    staffs = Staff.objects.all().order_by('id')
 
     context = {'staffs': staffs}
     return render(request, 'pura/staff.html', context)
@@ -174,7 +174,9 @@ def delete_customer(request, pk):
 def customer_details(request, pk):
     customer_details = Customer.objects.get(id=pk)
     customer_orders = Order.objects.filter(customer_id=pk)
-    context = {'customer_details': customer_details, 'customer_orders': customer_orders}
+    today = datetime.today()
+    orders = Order.objects.filter(customer_id=pk,created__month=today.month, created__year=today.year)
+    context = {'customer_details': customer_details, 'customer_orders': customer_orders,'orders':orders}
     return render(request, 'pura/customer_details.html', context)
 
 
@@ -438,4 +440,26 @@ def landing_page(request):
 
     context = {'customers':customers, }
     return render(request, 'pura/landing_page.html', context)
+
+
+@login_required()
+def order_date(request,pk):
+    customers = Customer.objects.all().filter(staff_id=pk).order_by('id')
+
+
+    context = {'customers':customers, }
+    return render(request, 'pura/order_date.html', context)
+
+
+def customer_priority(request):
+    onedaybefore = datetime.now() - timedelta(days=1)
+    twodaybefore = datetime.now() - timedelta(days=2)
+    threedaybefore = datetime.now() - timedelta(days=3)
+    green_customer = Order.objects.filter(created__gte=onedaybefore)
+    yellow_customer = Order.objects.filter(created__gte=twodaybefore,created__lte=onedaybefore)
+    red_customer = Order.objects.filter(created__lte=threedaybefore)
+
+
+    context = {'green_customer':green_customer,'yellow_customer':yellow_customer,'red_customer':red_customer}
+    return render(request,'pura/customer_priority.html',context)
 
