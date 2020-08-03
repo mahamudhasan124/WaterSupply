@@ -485,7 +485,7 @@ def customer_priority(request):
 
     for f in fourc:
         if f.customer_id not in four and f.customer_id not in three and f.customer_id not in two and f.customer_id not in one:
-            two.append(t.customer_id)
+            two.append(f.customer_id)
 
 
     for t in fivec:
