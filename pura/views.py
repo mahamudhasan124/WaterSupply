@@ -173,10 +173,14 @@ def delete_customer(request, pk):
 @login_required(login_url='login')
 def customer_details(request, pk):
     customer_details = Customer.objects.get(id=pk)
-    customer_orders = Order.objects.filter(customer_id=pk)
+    customer_orders = Order.objects.filter(customer_id=pk).order_by('-created')
     today = datetime.today()
     orders = Order.objects.filter(customer_id=pk,created__month=today.month, created__year=today.year)
-    context = {'customer_details': customer_details, 'customer_orders': customer_orders,'orders':orders}
+    today = datetime.today()
+    monthly_order = Order.objects.filter(customer_id=pk,created__month=today.month, created__year=today.year)
+    customer_monthly_jar_given = monthly_order.aggregate(sum=Sum('jar_given')).get('sum') or 0
+    customer_monthly_total = customer_monthly_jar_given * customer_details.jar_rate
+    context = {'customer_details': customer_details, 'customer_orders': customer_orders,'orders':orders, 'customer_monthly_total':customer_monthly_total, }
     return render(request, 'pura/customer_details.html', context)
 
 
@@ -225,7 +229,7 @@ def delivery(request, pk):
                }
     return render(request, 'pura/delivery.html', context)
 
-
+@login_required(login_url='login')
 def staff_details_today(request, pk):
     today = datetime.today().date()
     total_jar_given_today = Order.objects.all().filter(customer_id__staff_id=pk, created__gte=today,
@@ -276,7 +280,7 @@ def edit_order(request,pk):
 @login_required(login_url='login')
 def edit_order(request, pk):
     today = datetime.today().date()
-    order = Order.objects.get(customer_id=pk, created__lte=today, created__gte=today)
+    order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
 
     if request.method == 'POST':
@@ -296,7 +300,7 @@ def all_order(request):
     context = {'all_order': all_order,}
     return render(request, 'pura/all_order.html', context)
 
-
+@login_required(login_url='login')
 def guideline(request):
     return render(request, 'pura/guideline.html')
 
@@ -342,7 +346,7 @@ def edit_cost(request, pk):
     context = {'form': form}
     return render(request, 'pura/cost.html', context)
 
-
+@login_required(login_url='login')
 def account(request, year_month=None):
     staff_number = Staff.objects.all().count()
 
@@ -442,24 +446,58 @@ def landing_page(request):
     return render(request, 'pura/landing_page.html', context)
 
 
-@login_required()
-def order_date(request,pk):
-    customers = Customer.objects.all().filter(staff_id=pk).order_by('id')
-
-
-    context = {'customers':customers, }
-    return render(request, 'pura/order_date.html', context)
-
-
+@login_required(login_url='login')
 def customer_priority(request):
     onedaybefore = datetime.now() - timedelta(days=1)
     twodaybefore = datetime.now() - timedelta(days=2)
     threedaybefore = datetime.now() - timedelta(days=3)
-    green_customer = Order.objects.filter(created__gte=onedaybefore)
-    yellow_customer = Order.objects.filter(created__gte=twodaybefore,created__lte=onedaybefore)
-    red_customer = Order.objects.filter(created__lte=threedaybefore)
+    fourdaybefore = datetime.now() - timedelta(days=4)
+    fivedaybefore = datetime.now() - timedelta(days=5)
+    sixdaybefore = datetime.now() - timedelta(days=6)
+
+    onec = Order.objects.filter(created__gte=onedaybefore).order_by('customer_id')
+    twoc = Order.objects.filter(created__lte=twodaybefore,created__gte=twodaybefore).order_by('customer_id')
+    threec = Order.objects.filter(created__lte=threedaybefore,created__gte=threedaybefore).order_by('customer_id')
+    fourc = Order.objects.filter(created__lte=fourdaybefore,created__gte=fourdaybefore).order_by('customer_id')
+    fivec = Order.objects.filter(created__lte=fivedaybefore,created__gte=fivedaybefore).order_by('customer_id')
+    sixc = Order.objects.filter(created__lte=sixdaybefore).order_by('customer_id')
+
+    one = []
+    two = []
+    three = []
+    four = []
+    five = []
+    six = []
+
+    for o in onec:
+        if o.customer_id not in one:
+            one.append(o.customer_id)
+
+    for t in twoc:
+        if t.customer_id not in two and t.customer_id not in one:
+            two.append(t.customer_id)
 
 
-    context = {'green_customer':green_customer,'yellow_customer':yellow_customer,'red_customer':red_customer}
+    for t in threec:
+        if t.customer_id not in three and t.customer_id not in two and t.customer_id not in one:
+            two.append(t.customer_id)
+
+
+    for f in fourc:
+        if f.customer_id not in four and f.customer_id not in three and f.customer_id not in two and f.customer_id not in one:
+            two.append(t.customer_id)
+
+
+    for t in fivec:
+        if t.customer_id not in five and t.customer_id not in four and t.customer_id not in three and t.customer_id not in two and t.customer_id not in one:
+            two.append(t.customer_id)
+
+    for t in sixc:
+        if t.customer_id not in six and t.customer_id not in five and t.customer_id not in four and t.customer_id not in three and t.customer_id not in two and t.customer_id not in one:
+            six.append(t.customer_id)
+
+
+
+    context = {'one':one,'two':two,'three':three,'four':four,'five':five,'six':six,}
     return render(request,'pura/customer_priority.html',context)
 

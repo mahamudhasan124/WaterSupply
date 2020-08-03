@@ -39,10 +39,10 @@ class OrderForm(ModelForm):
         tk_collect = cleaned_data.get('tk_collect')
         if jar_given == 0 and jar_collect==0 and tk_collect==0:
             raise forms.ValidationError('All value can not be 0')
-        today = datetime.today().date()
-        ordered_customer = Order.objects.filter(created=today, customer_id=cleaned_data.get('customer_id'))
-        if ordered_customer:
-            raise forms.ValidationError('Already used ID')
+        #today = datetime.today().date()
+        #ordered_customer = Order.objects.filter(created=today, customer_id=cleaned_data.get('customer_id'))
+        #if ordered_customer:
+        #    raise forms.ValidationError('Already used ID')
         return cleaned_data
 
 

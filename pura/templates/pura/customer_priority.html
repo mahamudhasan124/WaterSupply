@@ -11,38 +11,96 @@
        <table class="table table-bordered table-hover">
       <thead class="table-secondary">
     <tr>
-      <th class="text-center bg-success" scope="col">Green Customer</th>
-      <th class="text-center bg-warning" scope="col">Yellow Customer</th>
-      <th class="text-center bg-danger" scope="col">Red Customer</th>
+      <th class="text-center bg-success" scope="col" style="width: 250px">One Day Before</th>
+      <th>
+          <div>
+            {% for o in one %}
+               {{ o }},
+             {% endfor %}
+          </div>
+      </th>
+    </tr>
+
+    <tr>
+      <th class="text-center bg-primary" scope="col" style="width: 250px">Two Day Before</th>
+      <th>
+          <div>
+            {% for t in two %}
+            {{ t }},
+            {% endfor %}
+          </div>
+      </th>
+    </tr>
+
+    <tr>
+      <th class="text-center bg-info" scope="col" style="width: 250px">Three Day Before</th>
+      <th>
+          <div>
+            {% for t in three %}
+               {{ t }},
+             {% endfor %}
+          </div>
+      </th>
+    </tr>
+
+    <tr>
+      <th class="text-center bg-warning" scope="col" style="width: 250px">Four Day Before</th>
+      <th>
+          <div>
+            {% for f in four %}
+               {{ f }},
+             {% endfor %}
+          </div>
+      </th>
+    </tr>
+
+    <tr>
+      <th class="text-center bg-warning" scope="col" style="width: 250px">Five Day Before</th>
+      <th>
+          <div>
+            {% for f in five %}
+               {{ f }},
+             {% endfor %}
+          </div>
+      </th>
+    </tr>
+
+    <tr>
+      <th class="text-center bg-danger" scope="col" style="width: 250px">Six Day Before</th>
+      <th>
+          <div>
+            {% for s in six %}
+            {{ s }},
+            {% endfor %}
+          </div>
+      </th>
     </tr>
   </thead>
+<!--
   <tbody>
     <td>
     <div>
         {% for g in green_customer %}
-            {{ g.customer_id }}
+            {{ g }},
         {% endfor %}
     </div>
 
     </td>
     <td scope="col">
         {% for y in yellow_customer %}
-            <p>{{ y.customer_id }} </p>
+            {{ y }},
         {% endfor %}
     </td>
     <td scope="col">
         {% for r in red_customer %}
-            {{ r.customer_id }},
+            {{ r }},
         {% endfor %}
     </td>
   </tbody>
+-->
 </table>
       </div>
     </div>
 </div>
-
-        {% for g in green_customer %}
-            {{ g.customer_id }}
-        {% endfor %}
 
 {% endblock %}
